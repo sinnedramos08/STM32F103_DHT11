@@ -1,0 +1,4 @@
+DHT11.c:14:6:DHT11_Start	8	static
+DHT11.c:25:9:DHT11_Check_Response	16	static
+DHT11.c:47:9:util_DHT11_Read_1Bit	16	static
+DHT11.c:63:10:DHT11_Read8Bit	16	static

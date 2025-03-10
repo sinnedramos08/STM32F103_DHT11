@@ -1,4 +1,4 @@
-Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
+Core/DHT11_HAL/Src/DHT11.o: ../Core/DHT11_HAL/Src/DHT11.c \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h \
  ../Core/Inc/stm32f1xx_hal_conf.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h \
@@ -27,8 +27,6 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h \
  C:/Users/denni/Documents/STM32\ Projects/DHT11/STM32F103_DHT11/Core/DHT11_HAL/Inc/DHT11.h \
  C:/Users/denni/Documents/STM32\ Projects/DHT11/STM32F103_DHT11/Core/HAL/Inc/SetPin.h
-
-../Core/Inc/main.h:
 
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h:
 

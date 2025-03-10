@@ -24,6 +24,8 @@
 /* USER CODE BEGIN Includes */
 #include "timer_hal.h"
 #include "time.h"
+#include "DHT11.h"
+#include "SetPin.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -42,7 +44,12 @@
 
 /* Private variables ---------------------------------------------------------*/
 TIM_HandleTypeDef htim3;
-
+uint8_t flag;
+uint32_t RH_integral;
+uint32_t RH_decimal;
+uint32_t TEMP_integral;
+uint32_t TEMP_decimal;
+uint32_t checksum;
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -97,12 +104,26 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_0);
-	  //HAL_Delay(100);
-	  delay_ms(60);
-	  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_0);
-	  delay_ms(60);
-	  //HAL_Delay(100);
+#if 1
+	  DHT11_Start();
+	  flag = DHT11_Check_Response();
+	  if (flag){
+		  RH_integral = DHT11_Read8Bit();
+		  RH_decimal = DHT11_Read8Bit();
+		  TEMP_integral = DHT11_Read8Bit();
+		  TEMP_decimal = DHT11_Read8Bit();
+		  checksum = DHT11_Read8Bit();
+	  }
+	  Set_Pin_Output(DHT11_PORT, DHT11_PIN);
+	  HAL_Delay(1000);
+#endif
+
+#if 0
+	 HAL_GPIO_TogglePin(DHT11_PORT, DHT11_PIN);
+	 delay_ms(20);
+	 HAL_GPIO_TogglePin(DHT11_PORT, DHT11_PIN);
+	 delay_ms(20);
+#endif
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

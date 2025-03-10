@@ -1,0 +1,2 @@
+SetPin.c:14:6:Set_Pin_Input	32	static
+SetPin.c:28:6:Set_Pin_Output	32	static

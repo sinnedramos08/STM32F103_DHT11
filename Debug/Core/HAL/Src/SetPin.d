@@ -1,4 +1,4 @@
-Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
+Core/HAL/Src/SetPin.o: ../Core/HAL/Src/SetPin.c \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h \
  ../Core/Inc/stm32f1xx_hal_conf.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h \
@@ -23,12 +23,9 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h \
- C:/Users/denni/Documents/STM32\ Projects/DHT11/STM32F103_DHT11/Core/HAL/Inc/timer_hal.h \
- ../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h \
+ C:/Users/denni/Documents/STM32\ Projects/DHT11/STM32F103_DHT11/Core/HAL/Inc/SetPin.h \
  C:/Users/denni/Documents/STM32\ Projects/DHT11/STM32F103_DHT11/Core/DHT11_HAL/Inc/DHT11.h \
- C:/Users/denni/Documents/STM32\ Projects/DHT11/STM32F103_DHT11/Core/HAL/Inc/SetPin.h
-
-../Core/Inc/main.h:
+ ../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h
 
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h:
 
@@ -78,10 +75,8 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h:
 
-C:/Users/denni/Documents/STM32\ Projects/DHT11/STM32F103_DHT11/Core/HAL/Inc/timer_hal.h:
-
-../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h:
+C:/Users/denni/Documents/STM32\ Projects/DHT11/STM32F103_DHT11/Core/HAL/Inc/SetPin.h:
 
 C:/Users/denni/Documents/STM32\ Projects/DHT11/STM32F103_DHT11/Core/DHT11_HAL/Inc/DHT11.h:
 
-C:/Users/denni/Documents/STM32\ Projects/DHT11/STM32F103_DHT11/Core/HAL/Inc/SetPin.h:
+../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h:

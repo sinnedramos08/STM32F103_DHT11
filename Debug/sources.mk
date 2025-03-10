@@ -21,6 +21,7 @@ OBJCOPY_BIN :=
 
 # Every subdirectory with source files must be described here
 SUBDIRS := \
+Core/DHT11_HAL/Src \
 Core/HAL/Src \
 Core/Src \
 Core/Startup \
