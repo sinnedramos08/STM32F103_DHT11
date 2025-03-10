@@ -99,9 +99,9 @@ int main(void)
   {
 	  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_0);
 	  //HAL_Delay(100);
-	  delay_us(18);
+	  delay_ms(60);
 	  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_0);
-	  delay_us(18);
+	  delay_ms(60);
 	  //HAL_Delay(100);
     /* USER CODE END WHILE */
 

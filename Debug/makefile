@@ -12,6 +12,7 @@ RM := rm -rf
 -include Drivers/STM32F1xx_HAL_Driver/Src/subdir.mk
 -include Core/Startup/subdir.mk
 -include Core/Src/subdir.mk
+-include Core/HAL/Src/subdir.mk
 -include subdir.mk
 -include objects.mk
 
@@ -64,8 +65,8 @@ all: main-build
 main-build: DHT11.elf secondary-outputs
 
 # Tool invocations
-DHT11.elf: $(OBJS) $(USER_OBJS) C:\Users\denni\Documents\STM32\ Projects\DHT11\STM32F103C8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "DHT11.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\denni\Documents\STM32 Projects\DHT11\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="DHT11.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+DHT11.elf: $(OBJS) $(USER_OBJS) C:\Users\denni\Documents\STM32\ Projects\DHT11\STM32F103_DHT11\STM32F103C8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "DHT11.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\denni\Documents\STM32 Projects\DHT11\STM32F103_DHT11\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="DHT11.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

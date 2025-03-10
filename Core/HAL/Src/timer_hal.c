@@ -9,7 +9,7 @@
 #include "stm32f103xb.h"
 
 
-void delay_us (int us){
+void delay_us (uint32_t us){
 	/*** Steps to Follow ***
 	 * 1. Reset counter
 	 * 2. Wait for the counter to reach the entered value. Each tick is 1 us duration
@@ -18,6 +18,13 @@ void delay_us (int us){
 	TIM3->CNT = 0;
 
 	 while (TIM3->CNT < us);
+}
+
+void delay_ms (uint32_t ms){
+	TIM3->CR1 |= TIM_CR1_CEN;
+	TIM3->CNT = 0;
+
+	while (TIM3->CNT < (1000*ms));
 }
 
 
