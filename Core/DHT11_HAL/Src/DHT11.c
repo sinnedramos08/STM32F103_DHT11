@@ -27,6 +27,9 @@ void DHT11_Start (void){
 
 uint8_t DHT11_Check_Response (void){
 	uint8_t response = 0;
+	//uint8_t time = 0;
+
+
 	delay_us(40); // wait for 40us then check if Pin is 0
 
 	if (HAL_GPIO_ReadPin(DHT11_PORT, DHT11_PIN) == 0){
@@ -40,11 +43,8 @@ uint8_t DHT11_Check_Response (void){
 
 	}
 
-	// Wait for pin to go 0 again
-	while(HAL_GPIO_ReadPin(DHT11_PORT, DHT11_PIN));
-
+	//while(HAL_GPIO_ReadPin(DHT11_PORT, DHT11_PIN));
 	return response;
-
 }
 
 uint8_t util_DHT11_Read_1Bit(void){
@@ -97,14 +97,17 @@ uint32_t DHT11_Read8Bit(void){
 }
 
 uint64_t DHT11_ReadAll(void) {
-    uint64_t buffer = 0;  // Initialize a 64-bit variable (only 40 bits used)
+	while(HAL_GPIO_ReadPin(DHT11_PORT, DHT11_PIN));	// Wait until Pin is Low then start data transfer
+
+	uint64_t buffer = 0;  // Initialize a 64-bit variable (only 40 bits used)
 
     for (int i = 0; i < 40; i++) {
         buffer <<= 1;  // Shift left to make space for the next bit
         buffer |= util_DHT11_Read_1Bit();  // Read one bit and store in buffer
         while(!HAL_GPIO_ReadPin(DHT11_PORT, DHT11_PIN));
     }
-    buffer<<=1;		// Shift 1 to right since there is another 0 read at the start
+
+    buffer<<=1;		// Shift 1 to left since there is another 0 read at the start
 
     return buffer;  // Return the full 40-bit data
 }

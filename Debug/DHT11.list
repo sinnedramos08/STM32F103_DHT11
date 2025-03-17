@@ -128,13 +128,16 @@ uint8_t DHT11_Check_Response (void){
 	uint8_t response = 0;
  800018e:	2300      	movs	r3, #0
  8000190:	71fb      	strb	r3, [r7, #7]
+	//uint8_t time = 0;
+
+
 	delay_us(40); // wait for 40us then check if Pin is 0
  8000192:	2028      	movs	r0, #40	@ 0x28
  8000194:	f000 f8e0 	bl	8000358 <delay_us>
 
 	if (HAL_GPIO_ReadPin(DHT11_PORT, DHT11_PIN) == 0){
  8000198:	2101      	movs	r1, #1
- 800019a:	4811      	ldr	r0, [pc, #68]	@ (80001e0 <DHT11_Check_Response+0x58>)
+ 800019a:	480d      	ldr	r0, [pc, #52]	@ (80001d0 <DHT11_Check_Response+0x48>)
  800019c:	f000 fdfa 	bl	8000d94 <HAL_GPIO_ReadPin>
  80001a0:	4603      	mov	r3, r0
  80001a2:	2b00      	cmp	r3, #0
@@ -146,7 +149,7 @@ uint8_t DHT11_Check_Response (void){
 		// Check if Pin is 1
 		if (HAL_GPIO_ReadPin(DHT11_PORT, DHT11_PIN)==1){
  80001ac:	2101      	movs	r1, #1
- 80001ae:	480c      	ldr	r0, [pc, #48]	@ (80001e0 <DHT11_Check_Response+0x58>)
+ 80001ae:	4808      	ldr	r0, [pc, #32]	@ (80001d0 <DHT11_Check_Response+0x48>)
  80001b0:	f000 fdf0 	bl	8000d94 <HAL_GPIO_ReadPin>
  80001b4:	4603      	mov	r3, r0
  80001b6:	2b01      	cmp	r3, #1
@@ -162,97 +165,95 @@ uint8_t DHT11_Check_Response (void){
 
 	}
 
-	// Wait for pin to go 0 again
-	while(HAL_GPIO_ReadPin(DHT11_PORT, DHT11_PIN));
- 80001c4:	bf00      	nop
- 80001c6:	2101      	movs	r1, #1
- 80001c8:	4805      	ldr	r0, [pc, #20]	@ (80001e0 <DHT11_Check_Response+0x58>)
- 80001ca:	f000 fde3 	bl	8000d94 <HAL_GPIO_ReadPin>
- 80001ce:	4603      	mov	r3, r0
- 80001d0:	2b00      	cmp	r3, #0
- 80001d2:	d1f8      	bne.n	80001c6 <DHT11_Check_Response+0x3e>
-
+	//while(HAL_GPIO_ReadPin(DHT11_PORT, DHT11_PIN));
 	return response;
- 80001d4:	79fb      	ldrb	r3, [r7, #7]
-
+ 80001c4:	79fb      	ldrb	r3, [r7, #7]
 }
- 80001d6:	4618      	mov	r0, r3
- 80001d8:	3708      	adds	r7, #8
- 80001da:	46bd      	mov	sp, r7
- 80001dc:	bd80      	pop	{r7, pc}
- 80001de:	bf00      	nop
- 80001e0:	40010800 	.word	0x40010800
+ 80001c6:	4618      	mov	r0, r3
+ 80001c8:	3708      	adds	r7, #8
+ 80001ca:	46bd      	mov	sp, r7
+ 80001cc:	bd80      	pop	{r7, pc}
+ 80001ce:	bf00      	nop
+ 80001d0:	40010800 	.word	0x40010800
 
-080001e4 <util_DHT11_Read_1Bit>:
+080001d4 <util_DHT11_Read_1Bit>:
 
 uint8_t util_DHT11_Read_1Bit(void){
- 80001e4:	b580      	push	{r7, lr}
- 80001e6:	b082      	sub	sp, #8
- 80001e8:	af00      	add	r7, sp, #0
+ 80001d4:	b580      	push	{r7, lr}
+ 80001d6:	b082      	sub	sp, #8
+ 80001d8:	af00      	add	r7, sp, #0
 	uint8_t time = 0;
- 80001ea:	2300      	movs	r3, #0
- 80001ec:	71fb      	strb	r3, [r7, #7]
+ 80001da:	2300      	movs	r3, #0
+ 80001dc:	71fb      	strb	r3, [r7, #7]
 	TIM3->CR1 |= TIM_CR1_CEN;	// Enable TIM3
- 80001ee:	4b12      	ldr	r3, [pc, #72]	@ (8000238 <util_DHT11_Read_1Bit+0x54>)
- 80001f0:	681b      	ldr	r3, [r3, #0]
- 80001f2:	4a11      	ldr	r2, [pc, #68]	@ (8000238 <util_DHT11_Read_1Bit+0x54>)
- 80001f4:	f043 0301 	orr.w	r3, r3, #1
- 80001f8:	6013      	str	r3, [r2, #0]
+ 80001de:	4b12      	ldr	r3, [pc, #72]	@ (8000228 <util_DHT11_Read_1Bit+0x54>)
+ 80001e0:	681b      	ldr	r3, [r3, #0]
+ 80001e2:	4a11      	ldr	r2, [pc, #68]	@ (8000228 <util_DHT11_Read_1Bit+0x54>)
+ 80001e4:	f043 0301 	orr.w	r3, r3, #1
+ 80001e8:	6013      	str	r3, [r2, #0]
 	TIM3->CNT = 0;				// Reset Timer Counter
- 80001fa:	4b0f      	ldr	r3, [pc, #60]	@ (8000238 <util_DHT11_Read_1Bit+0x54>)
- 80001fc:	2200      	movs	r2, #0
- 80001fe:	625a      	str	r2, [r3, #36]	@ 0x24
+ 80001ea:	4b0f      	ldr	r3, [pc, #60]	@ (8000228 <util_DHT11_Read_1Bit+0x54>)
+ 80001ec:	2200      	movs	r2, #0
+ 80001ee:	625a      	str	r2, [r3, #36]	@ 0x24
 
 	// Wait for the whole high bit time then record the time
 	while(HAL_GPIO_ReadPin(DHT11_PORT, DHT11_PIN));
- 8000200:	bf00      	nop
- 8000202:	2101      	movs	r1, #1
- 8000204:	480d      	ldr	r0, [pc, #52]	@ (800023c <util_DHT11_Read_1Bit+0x58>)
- 8000206:	f000 fdc5 	bl	8000d94 <HAL_GPIO_ReadPin>
- 800020a:	4603      	mov	r3, r0
- 800020c:	2b00      	cmp	r3, #0
- 800020e:	d1f8      	bne.n	8000202 <util_DHT11_Read_1Bit+0x1e>
+ 80001f0:	bf00      	nop
+ 80001f2:	2101      	movs	r1, #1
+ 80001f4:	480d      	ldr	r0, [pc, #52]	@ (800022c <util_DHT11_Read_1Bit+0x58>)
+ 80001f6:	f000 fdcd 	bl	8000d94 <HAL_GPIO_ReadPin>
+ 80001fa:	4603      	mov	r3, r0
+ 80001fc:	2b00      	cmp	r3, #0
+ 80001fe:	d1f8      	bne.n	80001f2 <util_DHT11_Read_1Bit+0x1e>
 	time = TIM3->CNT;
- 8000210:	4b09      	ldr	r3, [pc, #36]	@ (8000238 <util_DHT11_Read_1Bit+0x54>)
- 8000212:	6a5b      	ldr	r3, [r3, #36]	@ 0x24
- 8000214:	71fb      	strb	r3, [r7, #7]
+ 8000200:	4b09      	ldr	r3, [pc, #36]	@ (8000228 <util_DHT11_Read_1Bit+0x54>)
+ 8000202:	6a5b      	ldr	r3, [r3, #36]	@ 0x24
+ 8000204:	71fb      	strb	r3, [r7, #7]
 
 	TIM3->CR1 &= ~TIM_CR1_CEN;  // Disable TIM3
- 8000216:	4b08      	ldr	r3, [pc, #32]	@ (8000238 <util_DHT11_Read_1Bit+0x54>)
- 8000218:	681b      	ldr	r3, [r3, #0]
- 800021a:	4a07      	ldr	r2, [pc, #28]	@ (8000238 <util_DHT11_Read_1Bit+0x54>)
- 800021c:	f023 0301 	bic.w	r3, r3, #1
- 8000220:	6013      	str	r3, [r2, #0]
+ 8000206:	4b08      	ldr	r3, [pc, #32]	@ (8000228 <util_DHT11_Read_1Bit+0x54>)
+ 8000208:	681b      	ldr	r3, [r3, #0]
+ 800020a:	4a07      	ldr	r2, [pc, #28]	@ (8000228 <util_DHT11_Read_1Bit+0x54>)
+ 800020c:	f023 0301 	bic.w	r3, r3, #1
+ 8000210:	6013      	str	r3, [r2, #0]
 
     if (time > 60)     // Approximately 70us for bit 1
- 8000222:	79fb      	ldrb	r3, [r7, #7]
- 8000224:	2b3c      	cmp	r3, #60	@ 0x3c
- 8000226:	d901      	bls.n	800022c <util_DHT11_Read_1Bit+0x48>
+ 8000212:	79fb      	ldrb	r3, [r7, #7]
+ 8000214:	2b3c      	cmp	r3, #60	@ 0x3c
+ 8000216:	d901      	bls.n	800021c <util_DHT11_Read_1Bit+0x48>
         return 1;
- 8000228:	2301      	movs	r3, #1
- 800022a:	e000      	b.n	800022e <util_DHT11_Read_1Bit+0x4a>
+ 8000218:	2301      	movs	r3, #1
+ 800021a:	e000      	b.n	800021e <util_DHT11_Read_1Bit+0x4a>
     else               // Approximately 26-28us for bit 0
         return 0;
- 800022c:	2300      	movs	r3, #0
+ 800021c:	2300      	movs	r3, #0
 }
- 800022e:	4618      	mov	r0, r3
- 8000230:	3708      	adds	r7, #8
- 8000232:	46bd      	mov	sp, r7
- 8000234:	bd80      	pop	{r7, pc}
- 8000236:	bf00      	nop
- 8000238:	40000400 	.word	0x40000400
- 800023c:	40010800 	.word	0x40010800
+ 800021e:	4618      	mov	r0, r3
+ 8000220:	3708      	adds	r7, #8
+ 8000222:	46bd      	mov	sp, r7
+ 8000224:	bd80      	pop	{r7, pc}
+ 8000226:	bf00      	nop
+ 8000228:	40000400 	.word	0x40000400
+ 800022c:	40010800 	.word	0x40010800
 
-08000240 <DHT11_ReadAll>:
+08000230 <DHT11_ReadAll>:
 	}
 	return buffer;
 #endif
 }
 
 uint64_t DHT11_ReadAll(void) {
- 8000240:	e92d 4fb0 	stmdb	sp!, {r4, r5, r7, r8, r9, sl, fp, lr}
- 8000244:	b086      	sub	sp, #24
- 8000246:	af00      	add	r7, sp, #0
+ 8000230:	e92d 4fb0 	stmdb	sp!, {r4, r5, r7, r8, r9, sl, fp, lr}
+ 8000234:	b086      	sub	sp, #24
+ 8000236:	af00      	add	r7, sp, #0
+	while(HAL_GPIO_ReadPin(DHT11_PORT, DHT11_PIN));	// Wait until Pin is Low then start data transfer
+ 8000238:	bf00      	nop
+ 800023a:	2101      	movs	r1, #1
+ 800023c:	4823      	ldr	r0, [pc, #140]	@ (80002cc <DHT11_ReadAll+0x9c>)
+ 800023e:	f000 fda9 	bl	8000d94 <HAL_GPIO_ReadPin>
+ 8000242:	4603      	mov	r3, r0
+ 8000244:	2b00      	cmp	r3, #0
+ 8000246:	d1f8      	bne.n	800023a <DHT11_ReadAll+0xa>
     uint64_t buffer = 0;  // Initialize a 64-bit variable (only 40 bits used)
  8000248:	f04f 0200 	mov.w	r2, #0
  800024c:	f04f 0300 	mov.w	r3, #0
@@ -261,14 +262,14 @@ uint64_t DHT11_ReadAll(void) {
     for (int i = 0; i < 40; i++) {
  8000254:	2300      	movs	r3, #0
  8000256:	60fb      	str	r3, [r7, #12]
- 8000258:	e024      	b.n	80002a4 <DHT11_ReadAll+0x64>
+ 8000258:	e024      	b.n	80002a4 <DHT11_ReadAll+0x74>
         buffer <<= 1;  // Shift left to make space for the next bit
  800025a:	e9d7 2304 	ldrd	r2, r3, [r7, #16]
  800025e:	eb12 0a02 	adds.w	sl, r2, r2
  8000262:	eb43 0b03 	adc.w	fp, r3, r3
  8000266:	e9c7 ab04 	strd	sl, fp, [r7, #16]
         buffer |= util_DHT11_Read_1Bit();  // Read one bit and store in buffer
- 800026a:	f7ff ffbb 	bl	80001e4 <util_DHT11_Read_1Bit>
+ 800026a:	f7ff ffb3 	bl	80001d4 <util_DHT11_Read_1Bit>
  800026e:	4603      	mov	r3, r0
  8000270:	b2db      	uxtb	r3, r3
  8000272:	2200      	movs	r2, #0
@@ -284,18 +285,18 @@ uint64_t DHT11_ReadAll(void) {
         while(!HAL_GPIO_ReadPin(DHT11_PORT, DHT11_PIN));
  800028e:	bf00      	nop
  8000290:	2101      	movs	r1, #1
- 8000292:	480e      	ldr	r0, [pc, #56]	@ (80002cc <DHT11_ReadAll+0x8c>)
+ 8000292:	480e      	ldr	r0, [pc, #56]	@ (80002cc <DHT11_ReadAll+0x9c>)
  8000294:	f000 fd7e 	bl	8000d94 <HAL_GPIO_ReadPin>
  8000298:	4603      	mov	r3, r0
  800029a:	2b00      	cmp	r3, #0
- 800029c:	d0f8      	beq.n	8000290 <DHT11_ReadAll+0x50>
+ 800029c:	d0f8      	beq.n	8000290 <DHT11_ReadAll+0x60>
     for (int i = 0; i < 40; i++) {
  800029e:	68fb      	ldr	r3, [r7, #12]
  80002a0:	3301      	adds	r3, #1
  80002a2:	60fb      	str	r3, [r7, #12]
  80002a4:	68fb      	ldr	r3, [r7, #12]
  80002a6:	2b27      	cmp	r3, #39	@ 0x27
- 80002a8:	ddd7      	ble.n	800025a <DHT11_ReadAll+0x1a>
+ 80002a8:	ddd7      	ble.n	800025a <DHT11_ReadAll+0x2a>
     }
     buffer<<=1;		// Shift 1 to right since there is another 0 read at the start
  80002aa:	e9d7 2304 	ldrd	r2, r3, [r7, #16]
@@ -540,13 +541,13 @@ int main(void)
 #endif
 
 #if 1
-	  if (flag){
+	  if (flag){									// Sensor Present
  80003f4:	4b29      	ldr	r3, [pc, #164]	@ (800049c <main+0xcc>)
  80003f6:	781b      	ldrb	r3, [r3, #0]
  80003f8:	2b00      	cmp	r3, #0
  80003fa:	d04c      	beq.n	8000496 <main+0xc6>
 		  checkAll = DHT11_ReadAll();				// Read all 40 bits
- 80003fc:	f7ff ff20 	bl	8000240 <DHT11_ReadAll>
+ 80003fc:	f7ff ff18 	bl	8000230 <DHT11_ReadAll>
  8000400:	4602      	mov	r2, r0
  8000402:	460b      	mov	r3, r1
  8000404:	4926      	ldr	r1, [pc, #152]	@ (80004a0 <main+0xd0>)
@@ -606,7 +607,7 @@ int main(void)
  8000488:	4a0a      	ldr	r2, [pc, #40]	@ (80004b4 <main+0xe4>)
  800048a:	6013      	str	r3, [r2, #0]
 	  }
-	  else{
+	  else{											// Sensor not Present
 		  continue;
 	  }
 	  HAL_Delay(1000);

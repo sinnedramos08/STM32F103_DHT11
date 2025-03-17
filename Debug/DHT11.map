@@ -2646,14 +2646,14 @@ LOAD C:/ST/STM32CubeIDE_1.18.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.ext
                 0x0800014c       0x3c ./Core/DHT11_HAL/Src/DHT11.o
                 0x0800014c                DHT11_Start
  .text.DHT11_Check_Response
-                0x08000188       0x5c ./Core/DHT11_HAL/Src/DHT11.o
+                0x08000188       0x4c ./Core/DHT11_HAL/Src/DHT11.o
                 0x08000188                DHT11_Check_Response
  .text.util_DHT11_Read_1Bit
-                0x080001e4       0x5c ./Core/DHT11_HAL/Src/DHT11.o
-                0x080001e4                util_DHT11_Read_1Bit
+                0x080001d4       0x5c ./Core/DHT11_HAL/Src/DHT11.o
+                0x080001d4                util_DHT11_Read_1Bit
  .text.DHT11_ReadAll
-                0x08000240       0x90 ./Core/DHT11_HAL/Src/DHT11.o
-                0x08000240                DHT11_ReadAll
+                0x08000230       0xa0 ./Core/DHT11_HAL/Src/DHT11.o
+                0x08000230                DHT11_ReadAll
  .text.Set_Pin_Input
                 0x080002d0       0x44 ./Core/HAL/Src/SetPin.o
                 0x080002d0                Set_Pin_Input

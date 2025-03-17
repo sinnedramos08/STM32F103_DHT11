@@ -121,7 +121,7 @@ int main(void)
 #endif
 
 #if 1
-	  if (flag){
+	  if (flag){									// Sensor Present
 		  checkAll = DHT11_ReadAll();				// Read all 40 bits
 		  RH_integral = (checkAll >> 32) & 0xFF;	// Extract Byte4
 		  RH_decimal = (checkAll >> 24) & 0xFF;		// Extract Byte 3
@@ -129,7 +129,7 @@ int main(void)
 		  TEMP_decimal = (checkAll >> 8) & 0xFF;	// Extract Byte 1
 		  checksum = (checkAll >> 0) & 0xFF;		// Extract Byte 0
 	  }
-	  else{
+	  else{											// Sensor not Present
 		  continue;
 	  }
 	  HAL_Delay(1000);
