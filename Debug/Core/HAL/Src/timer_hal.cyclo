@@ -1,0 +1,2 @@
+../Core/HAL/Src/timer_hal.c:12:6:delay_us	2
+../Core/HAL/Src/timer_hal.c:23:6:delay_ms	2

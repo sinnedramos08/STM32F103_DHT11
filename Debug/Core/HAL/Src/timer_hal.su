@@ -1,2 +1,2 @@
-timer_hal.c:12:6:delay_us	16	static
-timer_hal.c:23:6:delay_ms	16	static
+../Core/HAL/Src/timer_hal.c:12:6:delay_us	16	static
+../Core/HAL/Src/timer_hal.c:23:6:delay_ms	16	static

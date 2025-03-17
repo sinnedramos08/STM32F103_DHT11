@@ -45,11 +45,13 @@
 /* Private variables ---------------------------------------------------------*/
 TIM_HandleTypeDef htim3;
 uint8_t flag;
-uint32_t RH_integral;
-uint32_t RH_decimal;
-uint32_t TEMP_integral;
-uint32_t TEMP_decimal;
-uint32_t checksum;
+uint32_t RH_integral = 0;
+uint32_t RH_decimal = 0;
+uint32_t TEMP_integral = 0;
+uint32_t TEMP_decimal = 0;
+uint32_t checksum = 0;
+uint64_t checkAll;
+uint8_t dht11_data[40];
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -104,9 +106,9 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-#if 1
-	  DHT11_Start();
+	  DHT11_Start();	// Initiate start of conversation
 	  flag = DHT11_Check_Response();
+#if 0
 	  if (flag){
 		  RH_integral = DHT11_Read8Bit();
 		  RH_decimal = DHT11_Read8Bit();
@@ -114,16 +116,25 @@ int main(void)
 		  TEMP_decimal = DHT11_Read8Bit();
 		  checksum = DHT11_Read8Bit();
 	  }
-	  Set_Pin_Output(DHT11_PORT, DHT11_PIN);
+	  //Set_Pin_Output(DHT11_PORT, DHT11_PIN);
+	  HAL_Delay(3000);
+#endif
+
+#if 1
+	  if (flag){
+		  checkAll = DHT11_ReadAll();				// Read all 40 bits
+		  RH_integral = (checkAll >> 32) & 0xFF;	// Extract Byte4
+		  RH_decimal = (checkAll >> 24) & 0xFF;		// Extract Byte 3
+		  TEMP_integral = (checkAll >> 16) & 0xFF;	// Extract Byte 2
+		  TEMP_decimal = (checkAll >> 8) & 0xFF;	// Extract Byte 1
+		  checksum = (checkAll >> 0) & 0xFF;		// Extract Byte 0
+	  }
+	  else{
+		  continue;
+	  }
 	  HAL_Delay(1000);
 #endif
 
-#if 0
-	 HAL_GPIO_TogglePin(DHT11_PORT, DHT11_PIN);
-	 delay_ms(20);
-	 HAL_GPIO_TogglePin(DHT11_PORT, DHT11_PIN);
-	 delay_ms(20);
-#endif
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

@@ -10,8 +10,11 @@
 #include "DHT11.h"
 #include "SetPin.h"
 
+#define DHT11_OLD		1
+#define my_code			1
 
 void DHT11_Start (void){
+	Set_Pin_Output (DHT11_PORT, DHT11_PIN);
 	HAL_GPIO_WritePin(DHT11_PORT, DHT11_PIN, 0); //Write 0 for at least 18ms
 	delay_ms(20);
 	HAL_GPIO_WritePin(DHT11_PORT, DHT11_PIN, 1); //Write 1 for 20us to 40us
@@ -19,7 +22,7 @@ void DHT11_Start (void){
 
 	//Set PIN as Input
 	Set_Pin_Input(DHT11_PORT, DHT11_PIN);
-	while(HAL_GPIO_ReadPin(DHT11_PORT, DHT11_PIN));	// Wait for the Pin to be low
+	//while(HAL_GPIO_ReadPin(DHT11_PORT, DHT11_PIN));	// Wait for the Pin to be low
 }
 
 uint8_t DHT11_Check_Response (void){
@@ -55,23 +58,53 @@ uint8_t util_DHT11_Read_1Bit(void){
 
 	TIM3->CR1 &= ~TIM_CR1_CEN;  // Disable TIM3
 
-    if (time > 50)     // Approximately 70us for bit 1
+    if (time > 60)     // Approximately 70us for bit 1
         return 1;
     else               // Approximately 26-28us for bit 0
         return 0;
 }
+
 uint32_t DHT11_Read8Bit(void){
-	uint32_t buffer = 0;
+	uint32_t buffer = 0b0;
+
 
 	// Loop for 8 times to fill the buffer
+#if 0
 	for (int i = 0; i < 8; i++){
-		buffer <<=1;	// Shift Bit to right to make room for next bit
-		buffer |= util_DHT11_Read_1Bit();	// Add the bits read to the buffer
 
-		while(!HAL_GPIO_ReadPin(DHT11_PORT, DHT11_PIN));		// Wait for the pin to go 1 to account for the delay of next bit
+			buffer <<=1;	// Shift Bit to right to make room for next bit
+			buffer |= util_DHT11_Read_1Bit();	// Add the bits read to the buffer
+
+			while(!HAL_GPIO_ReadPin(DHT11_PORT, DHT11_PIN));		// Wait for the pin to go 1 to account for the delay of next bit
+	}
+	return buffer <<= 1;
+#endif
+
+#if 1
+	//uint8_t bit = util_DHT11_Read_1Bit();
+	for (int i = 0; i < 8; i++){
+		if (util_DHT11_Read_1Bit()){	// if read 1
+			buffer |= (1<<(7-i));
+		}
+		else{		// if read 0
+			buffer &= ~(1<<(7-i));
+		}
+		while(!HAL_GPIO_ReadPin(DHT11_PORT, DHT11_PIN));
 
 	}
 	return buffer;
+#endif
 }
 
+uint64_t DHT11_ReadAll(void) {
+    uint64_t buffer = 0;  // Initialize a 64-bit variable (only 40 bits used)
 
+    for (int i = 0; i < 40; i++) {
+        buffer <<= 1;  // Shift left to make space for the next bit
+        buffer |= util_DHT11_Read_1Bit();  // Read one bit and store in buffer
+        while(!HAL_GPIO_ReadPin(DHT11_PORT, DHT11_PIN));
+    }
+    buffer<<=1;		// Shift 1 to right since there is another 0 read at the start
+
+    return buffer;  // Return the full 40-bit data
+}

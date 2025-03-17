@@ -1,4 +1,5 @@
-DHT11.c:14:6:DHT11_Start	8	static
-DHT11.c:25:9:DHT11_Check_Response	16	static
-DHT11.c:47:9:util_DHT11_Read_1Bit	16	static
-DHT11.c:63:10:DHT11_Read8Bit	16	static
+../Core/DHT11_HAL/Src/DHT11.c:16:6:DHT11_Start	8	static
+../Core/DHT11_HAL/Src/DHT11.c:28:9:DHT11_Check_Response	16	static
+../Core/DHT11_HAL/Src/DHT11.c:50:9:util_DHT11_Read_1Bit	16	static
+../Core/DHT11_HAL/Src/DHT11.c:67:10:DHT11_Read8Bit	16	static
+../Core/DHT11_HAL/Src/DHT11.c:99:10:DHT11_ReadAll	56	static

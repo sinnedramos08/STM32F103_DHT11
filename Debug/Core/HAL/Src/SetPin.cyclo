@@ -1,0 +1,2 @@
+../Core/HAL/Src/SetPin.c:14:6:Set_Pin_Input	1
+../Core/HAL/Src/SetPin.c:28:6:Set_Pin_Output	1
